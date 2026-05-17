@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Weekend Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Monoton&family=DM+Serif+Display:ital@0;1&family=Karla:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5e6c8;
+    --cream-deep: #ecd9b0;
+    --coffee: #3a1f0e;
+    --coffee-soft: #6b4a30;
+    --coral: #e85d3c;
+    --mustard: #e5a82e;
+    --sage: #6b9b8f;
+    --plum: #8b5a6f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--coffee);
+    font-family: 'Karla', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,93,60,0.22), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 90% 30%, rgba(229,168,46,0.25), transparent 60%),
+      radial-gradient(ellipse 90% 70% at 50% 100%, rgba(107,155,143,0.20), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 10% 80%, rgba(139,90,111,0.15), transparent 60%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.22 0 0 0 0 0.12 0 0 0 0 0.05 0 0 0 0.45 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 32px 100px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── NAV ── */
+  .site-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+
+  .nav-pill {
+    font-family: 'Bowlby One', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 100px;
+    border: 2.5px solid var(--coffee);
+    color: var(--coffee);
+    background: transparent;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .nav-pill:hover { transform: rotate(-2deg) scale(1.05); }
+  .nav-pill.active { background: var(--coffee); color: var(--cream); }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    margin-bottom: 90px;
+    position: relative;
+    padding: 60px 0 40px;
+  }
+
+  .sunburst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    z-index: -1;
+    opacity: 0.75;
+    animation: spin 120s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .kicker {
+    font-family: 'Karla', sans-serif;
+    font-weight: 600;
+    color: var(--coral);
+    font-size: 13px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: inline-block;
+    padding: 8px 20px;
+    border: 2px solid var(--coral);
+    border-radius: 100px;
+    background: var(--cream);
+  }
+
+  h1 {
+    font-family: 'Monoton', serif;
+    font-weight: 400;
+    font-size: clamp(72px, 14vw, 150px);
+    line-height: 0.85;
+    color: var(--coffee);
+    text-shadow: 4px 4px 0 var(--mustard), 8px 8px 0 var(--coral), 12px 12px 0 var(--sage);
+    margin: 0 0 32px;
+    transform: rotate(-2deg);
+  }
+
+  .subtitle {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--coffee);
+    font-size: 22px;
+    margin-top: 32px;
+  }
+
+  .subtitle .dot { color: var(--coral); margin: 0 14px; font-style: normal; }
+
+  /* ── WAVE ── */
+  .wave-divider {
+    height: 32px;
+    margin: 56px 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 24' preserveAspectRatio='none'%3E%3Cpath d='M0,12 Q25,0 50,12 T100,12 T150,12 T200,12' fill='none' stroke='%23e85d3c' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M0,18 Q25,6 50,18 T100,18 T150,18 T200,18' fill='none' stroke='%23e5a82e' stroke-width='2' stroke-linecap='round' opacity='0.7'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 200px 24px;
+    background-position: center;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 32px;
+    padding: 40px 36px;
+    background: rgba(245,230,200,0.6);
+    border: 3px solid var(--coffee);
+    border-radius: 32px;
+    box-shadow: 8px 8px 0 var(--mustard);
+  }
+
+  section:nth-of-type(2) { box-shadow: -8px 8px 0 var(--sage);  transform: rotate(0.5deg); }
+  section:nth-of-type(3) { box-shadow:  8px 8px 0 var(--coral); transform: rotate(-0.5deg); }
+  section:nth-of-type(4) { box-shadow: -8px 8px 0 var(--plum); }
+
+  .meal-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 3px dashed var(--coffee);
+  }
+
+  .meal-number {
+    font-family: 'Bowlby One', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 4px solid var(--coffee);
+  }
+
+  section:nth-of-type(1) .meal-number { background: var(--coral); }
+  section:nth-of-type(2) .meal-number { background: var(--mustard); }
+  section:nth-of-type(3) .meal-number { background: var(--sage); }
+  section:nth-of-type(4) .meal-number { background: var(--plum); }
+
+  .meal-when {
+    font-family: 'Karla', sans-serif;
+    font-weight: 600;
+    color: var(--coffee-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .meal-title {
+    font-family: 'Bowlby One', sans-serif;
+    font-size: clamp(28px, 5vw, 40px);
+    line-height: 1;
+    color: var(--coffee);
+  }
+
+  .dishes { list-style: none; }
+
+  .dishes li {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(58,31,14,0.18);
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+  }
+
+  .dishes li:last-child { border-bottom: none; }
+
+  .dish-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 21px;
+    color: var(--coffee);
+    line-height: 1.2;
+    min-width: fit-content;
+  }
+
+  .dish-desc {
+    font-family: 'Karla', sans-serif;
+    font-style: italic;
+    color: var(--coffee-soft);
+    font-size: 15px;
+    flex: 1;
+    text-align: right;
+  }
+
+  .note {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: var(--coffee);
+    color: var(--cream);
+    border-radius: 16px;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .note strong {
+    display: block;
+    font-family: 'Bowlby One', sans-serif;
+    font-style: normal;
+    color: var(--mustard);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* ── BAR ── */
+  .bar {
+    margin-top: 80px;
+    padding: 56px 36px;
+    background: var(--coffee);
+    color: var(--cream);
+    border-radius: 32px;
+    border: 3px solid var(--coffee);
+    box-shadow: 8px 8px 0 var(--coral), 16px 16px 0 var(--mustard), 24px 24px 0 var(--sage);
+    transform: rotate(-1deg);
+    text-align: center;
+  }
+
+  .bar h2 {
+    font-family: 'Monoton', serif;
+    font-size: clamp(56px, 10vw, 96px);
+    line-height: 0.9;
+    color: var(--cream);
+    text-shadow: 3px 3px 0 var(--coral), 6px 6px 0 var(--mustard);
+    margin-bottom: 12px;
+    transform: rotate(2deg);
+  }
+
+  .bar .tagline {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--mustard);
+    font-size: 20px;
+    margin-bottom: 48px;
+  }
+
+  .beer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 36px; text-align: left; }
+
+  .beer {
+    padding: 20px;
+    background: var(--cream);
+    color: var(--coffee);
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .beer:hover { transform: rotate(-2deg) scale(1.03); }
+  .beer:nth-child(even):hover { transform: rotate(2deg) scale(1.03); }
+
+  .beer-name { font-family: 'Bowlby One', sans-serif; font-size: 17px; line-height: 1.15; margin-bottom: 6px; }
+  .beer-style { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--coffee-soft); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  footer { margin-top: 80px; text-align: center; padding: 40px 24px; }
+
+  footer .stamp {
+    display: inline-block;
+    font-family: 'Bowlby One', sans-serif;
+    color: var(--coral);
+    font-size: 28px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 24px 40px;
+    border: 4px double var(--coral);
+    border-radius: 200px / 80px;
+    transform: rotate(-3deg);
+    text-shadow: 2px 2px 0 var(--mustard);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    main { padding: 32px 16px 60px; }
+    .hero { padding: 30px 0 20px; margin-bottom: 60px; }
+    .sunburst { width: 360px; height: 360px; }
+    h1 { text-shadow: 3px 3px 0 var(--mustard), 6px 6px 0 var(--coral); }
+    section { padding: 28px 20px; border-radius: 24px; box-shadow: 5px 5px 0 var(--mustard) !important; }
+    section:nth-of-type(2) { box-shadow: -5px 5px 0 var(--sage) !important; }
+    section:nth-of-type(3) { box-shadow:  5px 5px 0 var(--coral) !important; }
+    section:nth-of-type(4) { box-shadow: -5px 5px 0 var(--plum) !important; }
+    .meal-header { gap: 16px; }
+    .meal-number { width: 64px; height: 64px; font-size: 32px; }
+    .dishes li { flex-direction: column; gap: 4px; }
+    .dish-desc { text-align: left; }
+    .beer-grid { grid-template-columns: 1fr; gap: 16px; }
+    .bar { padding: 40px 24px; transform: rotate(-0.5deg); box-shadow: 5px 5px 0 var(--coral), 10px 10px 0 var(--mustard); }
+    footer .stamp { font-size: 20px; padding: 18px 28px; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+  }
+
+  .site-nav, .hero, section, .bar, footer { animation: rise 0.9s cubic-bezier(0.2,0.8,0.2,1) backwards; }
+  .site-nav { animation-delay: 0s; }
+  .hero      { animation-delay: 0.1s; }
+  section:nth-of-type(1) { animation-delay: 0.25s; }
+  section:nth-of-type(2) { animation-delay: 0.4s; }
+  section:nth-of-type(3) { animation-delay: 0.55s; }
+  section:nth-of-type(4) { animation-delay: 0.7s; }
+  .bar    { animation-delay: 0.85s; }
+  footer  { animation-delay: 1s; }
+</style>
+</head>
+<body>
+<main>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-pill active">The Menu</a>
+    <a href="grocery-list.html" class="nav-pill">The List</a>
+  </nav>
+
+  <div class="hero">
+    <svg class="sunburst" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e5a82e" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#e5a82e" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="300" cy="300" r="280" fill="url(#g1)"/>
+      <g stroke="#e85d3c" stroke-width="2" stroke-linecap="round" opacity="0.6">
+        <line x1="300" y1="40" x2="300" y2="120"/> <line x1="300" y1="480" x2="300" y2="560"/>
+        <line x1="40" y1="300" x2="120" y2="300"/> <line x1="480" y1="300" x2="560" y2="300"/>
+        <line x1="115" y1="115" x2="172" y2="172"/> <line x1="428" y1="428" x2="485" y2="485"/>
+        <line x1="485" y1="115" x2="428" y2="172"/> <line x1="115" y1="485" x2="172" y2="428"/>
+        <line x1="218" y1="55" x2="240" y2="130"/> <line x1="360" y1="470" x2="382" y2="545"/>
+        <line x1="55" y1="382" x2="130" y2="360"/> <line x1="470" y1="240" x2="545" y2="218"/>
+        <line x1="382" y1="55" x2="360" y2="130"/> <line x1="218" y1="545" x2="240" y2="470"/>
+        <line x1="55" y1="218" x2="130" y2="240"/> <line x1="470" y1="360" x2="545" y2="382"/>
+      </g>
+      <circle cx="300" cy="300" r="200" fill="none" stroke="#6b9b8f" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="300" cy="300" r="160" fill="none" stroke="#e5a82e" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="300" cy="300" r="120" fill="none" stroke="#e85d3c" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="300" cy="300" r="80"  fill="none" stroke="#8b5a6f" stroke-width="1.5" opacity="0.5"/>
+    </svg>
+    <span class="kicker">A Weekend In</span>
+    <h1>The<br>Menu</h1>
+    <p class="subtitle">Two nights<span class="dot">✺</span>Three friends<span class="dot">✺</span>One small kitchen</p>
+  </div>
+
+  <section>
+    <div class="meal-header">
+      <div class="meal-number">1</div>
+      <div>
+        <div class="meal-when">Night One · Dinner</div>
+        <div class="meal-title">The Welcome Steak</div>
+      </div>
+    </div>
+    <ul class="dishes">
+      <li><span class="dish-name">Ribeye, seared</span><span class="dish-desc">flaky salt, cracked pepper, a knob of butter</span></li>
+      <li><span class="dish-name">Smashed potatoes</span><span class="dish-desc">crisped in olive oil, finished with herbs</span></li>
+      <li><span class="dish-name">Charred asparagus</span><span class="dish-desc">lemon, garlic, a hard squeeze of citrus</span></li>
+      <li><span class="dish-name">Arugula salad</span><span class="dish-desc">cherry tomato, shaved cheese, olive oil</span></li>
+    </ul>
+    <div class="note">
+      <strong>Cook's note</strong>
+      Cook extra steak and potatoes — tomorrow's brunch depends on it.
+    </div>
+  </section>
+
+  <div class="wave-divider"></div>
+
+  <section>
+    <div class="meal-header">
+      <div class="meal-number">2</div>
+      <div>
+        <div class="meal-when">Day Two · The Long Brunch</div>
+        <div class="meal-title">Slow Saturday Spread</div>
+      </div>
+    </div>
+    <ul class="dishes">
+      <li><span class="dish-name">Steak &amp; eggs</span><span class="dish-desc">last night's ribeye, sliced, with runny yolks</span></li>
+      <li><span class="dish-name">Breakfast potatoes</span><span class="dish-desc">re-crisped, hot sauce on the side</span></li>
+      <li><span class="dish-name">Thick-cut bacon</span><span class="dish-desc">slow in the oven, no splatter, no mercy</span></li>
+      <li><span class="dish-name">Pancakes</span><span class="dish-desc">fresh berries, real maple syrup, salted butter</span></li>
+      <li><span class="dish-name">Bloodys &amp; Mimosas</span><span class="dish-desc">build your own at the kitchen counter</span></li>
+    </ul>
+  </section>
+
+  <div class="wave-divider"></div>
+
+  <section>
+    <div class="meal-header">
+      <div class="meal-number">3</div>
+      <div>
+        <div class="meal-when">Night Two · After Hours</div>
+        <div class="meal-title">Sheet-Pan Nachos</div>
+      </div>
+    </div>
+    <ul class="dishes">
+      <li><span class="dish-name">The build</span><span class="dish-desc">chips, black beans, jack &amp; cheddar, jalapeños</span></li>
+      <li><span class="dish-name">The bake</span><span class="dish-desc">400°F until bubbling, 8 to 10 minutes</span></li>
+      <li><span class="dish-name">The finish</span><span class="dish-desc">salsa, sour cream, cilantro, ribbons of avocado</span></li>
+    </ul>
+    <div class="note">
+      <strong>Pairing</strong>
+      A stout, a porter, or whatever's left cold in the fridge.
+    </div>
+  </section>
+
+  <div class="wave-divider"></div>
+
+  <section>
+    <div class="meal-header">
+      <div class="meal-number">4</div>
+      <div>
+        <div class="meal-when">Day Three · Last Morning</div>
+        <div class="meal-title">A Quiet Send-Off</div>
+      </div>
+    </div>
+    <ul class="dishes">
+      <li><span class="dish-name">Yogurt parfaits</span><span class="dish-desc">Greek yogurt, granola, berries, honey drizzle</span></li>
+      <li><span class="dish-name">Avocado toast</span><span class="dish-desc">sourdough, smashed avocado, flaky salt, lemon</span></li>
+      <li><span class="dish-name">Soft-scrambled eggs</span><span class="dish-desc">low and slow, finished with butter</span></li>
+      <li><span class="dish-name">Coffee, hot</span><span class="dish-desc">strong, black, abundant</span></li>
+    </ul>
+  </section>
+
+  <section class="bar">
+    <h2>The Bar</h2>
+    <div class="tagline">~ pour with intention ~</div>
+    <div class="beer-grid">
+      <div class="beer">
+        <div class="beer-name">Sierra Nevada Hazy Little Thing</div>
+        <div class="beer-style">hazy IPA · crushable, citrus, the daytime beer</div>
+      </div>
+      <div class="beer">
+        <div class="beer-name">Allagash White</div>
+        <div class="beer-style">belgian wit · coriander, orange peel, brunch-ready</div>
+      </div>
+      <div class="beer">
+        <div class="beer-name">Founders Breakfast Stout</div>
+        <div class="beer-style">imperial stout · coffee, chocolate, the nightcap</div>
+      </div>
+      <div class="beer">
+        <div class="beer-name">Sparkling Wine + OJ</div>
+        <div class="beer-style">mimosa fuel · keep cold, pour generously</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="stamp">Eat well · Drink slow · Stay up late</div>
+  </footer>
+
+</main>
+</body>
+</html>
